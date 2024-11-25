@@ -1,5 +1,17 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+#weather-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 h1 {
   color: blue;
+  font-family: "Abril Fatface", serif;
+  font-size: 60px;
 }
 
 #bg-city-image {
@@ -7,16 +19,11 @@ h1 {
   position: absolute;
   object-fit: cover;
   z-index: -1;
+  opacity: 0.6;
 }
 
-#current-weather-container {
-  width: 100%;
+#city-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  padding: 40px;
-}
-
-#search-form-container {
-  display: flex;
 }
