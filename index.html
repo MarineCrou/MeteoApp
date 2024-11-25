@@ -18,14 +18,27 @@
 
 <!--? Sassy Sentences : 
 Sunny: "Well, aren’t you lucky? The sun decided to bless your basic life today."
-Cloudy: "The sky can’t decide what it’s doing, and neither can you apparently."
+Few clouds : "The sky can’t decide what it’s doing, and neither can you apparently."
+Cloudy: The sky’s in a funk, just like you before coffee.
 Rainy: "It’s wet, it’s miserable, and so is your hair. Get over it."
 Stormy: "Drama queen alert: the sky’s throwing a full-blown hissy fit. Stay inside."
 Snowy: It’s snowing. Build a snowman, or just let one hit you in the face. / "Winter is here, and so is your excuse to wear that ugly sweater."
 Windy: "The wind’s here to ruin your hair and your mood. You’re welcome."
-Foggy: "Visibility is optional today. Try not to walk into a pole." / The sky’s in a funk, just like you before coffee. Move along. // Visibility? Zero. Just like your sense of direction.
+Foggy: "Visibility is optional today. Try not to walk into a pole." // Visibility? Zero. Just like your sense of direction.
 Hot: "Hotter than your wildest bad decisions. Good luck surviving this one."
 Cold: "It’s colder than your ex’s heart. Bundle up, ice cube." -->
+
+<!--? matching sentences with API weather refrences :
+Sunny: Clear sky
+Few clouds : Few clouds
+Cloudy: Scattered clouds
+Few clouds : Broken clouds
+Rainy : Shower rain
+Rainy : Rain
+Stormy: Thunderstorm
+Snowy: Snow
+Windy: Mist
+-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +50,45 @@ Cold: "It’s colder than your ex’s heart. Bundle up, ice cube." -->
     <title>The Rude Weather App</title>
   </head>
   <body>
-    <h1>The Rude Weather App</h1>
+    <div class="bg-city-image">
+      <img
+        id="bg-city-image"
+        src="https://images.pexels.com/photos/12343946/pexels-photo-12343946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+        alt="Background image of city searched"
+      />
+    </div>
+    <div id="current-weather-container">
+      <header id="search-form-container">
+        <form id="search-form">
+          <input
+            type="search"
+            placeholder="Enter a city."
+            required
+            class="search-input"
+          />
+          <input type="submit" value="Search" class="search-button" />
+        </form>
+      </header>
+      <main>
+        <div id="current-weather">
+          <h1 id="city-dsplayed">City Name</h1>
+          <img id="weather-icon" src="weather icon" alt="weather icon" />
+          <h2 class="temperature">27<span id="units">°C</span></h2>
+          <p class="date-time">Monday | Nov 2024 | 12:50</p>
+          <p class="weather"></p>
+        </div>
+      </main>
+    </div>
+    <!-- cards x5 => forecast (temp, weather + icon) -->
+    <div id="forecast-weather">
+      <p>Tue.</p>
+      <img src="weather-icon" alt="weather-icon" />
+      <p class="temperature">23<span id="units">°C</span></p>
+      <p>
+        <span>12</span><span id="units">°C</span> - <span>23</span
+        ><span id="units">°C</span>
+      </p>
+    </div>
     <script src="./src/index.js"></script>
   </body>
 </html>
