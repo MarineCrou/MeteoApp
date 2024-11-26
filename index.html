@@ -61,23 +61,15 @@ Windy: Mist
   </head>
 
   <body>
-    <div class="card">
-      <div class="bg-image">
-        <img
-          id="bg-city-image"
-          src="https://images.pexels.com/photos/12343946/pexels-photo-12343946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-          alt="Background image of city searched"
-        />
-      </div>
-      <div id="weather-app">
-        <!-- ! background image ?-->
-
+    <!-- ! Weather App -->
+    <div id="weather-app">
+      <main id="main-container">
         <!-- * Search Engine -->
         <header id="header-search-form">
           <form id="search-form">
             <input
               type="search"
-              placeholder="Enter a city."
+              placeholder="Enter a City"
               required
               class="search-input"
             />
@@ -86,30 +78,20 @@ Windy: Mist
         </header>
 
         <!-- ! city-container -->
-        <main id="city-container">
+        <div id="city-container">
           <!-- weather icon -->
-          <div id="weather-icon-container">
+          <div id="city-img-container">
             <img
-              id="weather-icon"
-              src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/shower-rain-day.png"
-              alt="weather icon"
+              id="city-img"
+              src="https://www.okvoyage.com/wp-content/uploads/2023/10/Paris-en-photos-scaled.jpg"
+              alt="city image"
             />
           </div>
           <!-- city info (name + date + time) -->
           <div id="city-info-container">
-            <h3 id="city-name">Paris</h3>
-            <p class="date-time">Monday | Nov 2024 | 12:48</p>
+            <h2 id="city-name">Paris</h2>
+            <p class="date-time paragraph">Monday | Nov 2024 | 12:48</p>
           </div>
-        </main>
-
-        <!-- ! weather container -->
-        <div id="current-weather-container">
-          <h1 class="current-temperature">27<span id="units">°C</span></h1>
-          <p>
-            <span id="current-weather-condition">moderate rain</span> |
-            Humidity: <span id="current-humidity">87</span>% | Wind:
-            <span id="current-wind">7.2</span>km/h
-          </p>
         </div>
 
         <!-- ! Rude-sentence-container -->
@@ -118,20 +100,39 @@ Windy: Mist
           today.
         </p>
 
-        <!-- ! weather-forecast-container -->
-        <div id="forecast-weather">
-          <p>Tue.</p>
-          <img
-            src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/shower-rain-day.png"
-            alt="weather-icon"
-          />
-          <p class="temperature">23<span id="units">°C</span></p>
-          <p>
-            <span>12</span><span id="units">°C</span> - <span>23</span
-            ><span id="units">°C</span>
-          </p>
+        <!-- ! Current Weather container -->
+        <div id="current-weather-container">
+          <div id="weather-icon-container">
+            <img
+              id="weather-icon"
+              src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/shower-rain-day.png"
+              alt="weather icon"
+            />
+          </div>
+          <div class="current-weather-data">
+            <h1 class="current-temperature">27<span id="units">°C</span></h1>
+            <p class="paragraph">
+              <span id="current-weather-condition">moderate rain</span> <br />
+              Humidity: <span id="current-humidity">87</span>% <br />
+              Wind: <span id="current-wind">7.2</span>km/h
+            </p>
+          </div>
         </div>
-      </div>
+      </main>
+
+      <!-- ! weather-forecast-container -->
+      <!-- <div id="forecast-weather">
+        <p>Tue.</p>
+        <img
+          src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/shower-rain-day.png"
+          alt="weather-icon"
+        />
+        <p class="temperature">23<span id="units">°C</span></p>
+        <p>
+          <span>12</span><span id="units">°C</span> - <span>23</span
+          ><span id="units">°C</span>
+        </p>
+      </div> -->
     </div>
     <script src="./src/index.js"></script>
   </body>
