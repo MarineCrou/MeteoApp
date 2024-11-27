@@ -33,7 +33,7 @@ let cityDate = () => {
   ];
   let date = new Date();
   let hour = date.getHours();
-  let min = date.getMinutes();
+  let min = date.getMinutes().toString().padStart(2, "0");
   let weekDay = weekDays[date.getDay()];
   let month = months[date.getMonth()];
   let year = date.getFullYear();
@@ -44,8 +44,7 @@ let cityDate = () => {
 
   return formattedDate;
 };
-cityDate();
-// console.log(cityDate());
+setInterval(cityDate, 1000);
 
 //! 2. Using search form to display => name & weather data + icon matching search input
 
@@ -57,13 +56,16 @@ let citySearchForm = (event) => {
   // now get data for searched city
   let city = searchCity.value;
   let key = "tf486ac3343a3de0640fb9054f9boe8b";
-  let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${key}&units=metric`;
+  let units = "metric";
+  let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${key}&units=${units}`;
   // axios
   axios.get(weatherAppUrl).then(getCityWeather);
 };
 
 let searchForm = document.getElementById("header-search-form");
 searchForm.addEventListener("submit", citySearchForm);
+
+let tempUnits = document.querySelector();
 
 //! 1. Connect to the shecodes weather API
 
@@ -82,8 +84,8 @@ let getCityWeather = (response) => {
   let temperatureDisplayed = document.querySelector(".current-temperature");
   temperatureDisplayed.innerHTML = Math.round(cityTemperature);
 
-  let remperatureFeelsLikeDisplayed = document.querySelector("#feels-like");
-  remperatureFeelsLikeDisplayed.innerHTML = Math.round(
+  let temperatureFeelsLikeDisplayed = document.querySelector("#feels-like");
+  temperatureFeelsLikeDisplayed.innerHTML = Math.round(
     cityTemperatureFeelsLike
   );
 
@@ -93,7 +95,7 @@ let getCityWeather = (response) => {
   let weatherConditionDisplayed = document.getElementById(
     "current-weather-condition"
   );
-  weatherConditionDisplayed.innerHTML = cityWeatherCondition.toUpperCase();
+  weatherConditionDisplayed.innerHTML = cityWeatherCondition;
 
   let windDisplayed = document.getElementById("current-wind");
   windDisplayed.innerHTML = Math.round(cityWind);
