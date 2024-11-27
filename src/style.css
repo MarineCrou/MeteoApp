@@ -1,4 +1,3 @@
-/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -11,15 +10,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   min-height: 100vh;
   color: #555f77;
-  display: flex;
-  flex-direction: column;
-}
-
-h1,
-h2 {
-  color: #2f4858;
 }
 
 /* Weather App Container */
@@ -36,9 +29,20 @@ h2 {
   margin: 10px 0;
 }
 
+/* Main Container */
+#main-container {
+  text-align: center;
+}
+
 /* Search Bar */
-#search-form {
+#header-search-form {
   margin-bottom: 30px;
+}
+
+#search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .search-input {
@@ -65,21 +69,29 @@ h2 {
   background-color: #c5918c;
 }
 
+/* City Container */
+#city-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 /* City Image */
-#city-image-section {
-  margin: 20px 0;
+#city-img-container {
+  margin-bottom: 20px;
 }
 
 #city-img {
-  width: 500px;
-  height: 350px;
+  width: 100%;
+  max-width: 500px;
   border-radius: 10px;
   object-fit: cover;
 }
 
 /* City Info */
 #city-info-container {
-  margin-top: 30px;
+  text-align: center;
 }
 
 #city-name {
@@ -89,149 +101,113 @@ h2 {
   color: #2f4858;
 }
 
-#date-time {
+.date-time {
   font-size: 0.9rem;
   color: #e0e0e0;
 }
 
-/* ! Rude Sentence */
-#rude-sentence {
-  margin: 20px 0;
-  padding: 0 50px;
-  font-size: 0.9rem;
-  /* font-weight: 700; */
-  /* font-style: italic; */
-  text-align: center;
-  color: #ee6462;
-  font-family: "Abril Fatface", serif;
-}
-
-/* ! Current Weather */
+/* Current Weather Container */
 #current-weather-container {
-  margin-bottom: 20px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 #weather-temp-icon {
   display: flex;
-  flex: row;
   align-items: center;
   justify-content: center;
 }
 
-.current-weather-data {
-  text-align: left;
+#weather-icon-container img {
+  width: 100px;
+  height: 100px;
 }
+
+#temperature {
+  margin-left: 10px;
+}
+
 .current-temperature {
   font-size: 3rem;
   font-family: "Abril Fatface", serif;
   color: #2f4858;
 }
+
+.current-weather-data {
+  text-align: left;
+}
+
 .paragraph {
-  font-size: 0.8rem;
-}
-
-/* ! Forecast Section */
-#forecast {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.forecast-item {
-  text-align: center;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
-}
-
-.forecast-item:hover {
-  transform: scale(1.1);
-}
-
-.forecast-item img {
-  width: 40px;
-  height: 40px;
-}
-
-.forecast-item p {
-  margin: 5px 0;
   font-size: 0.9rem;
+  color: #555f77;
 }
 
+/* Rude Sentence */
+#rude-sentence {
+  margin: 20px 0;
+  padding: 0 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  font-style: italic;
+  color: #ee6462;
+  text-align: center;
+}
+
+/* Footer */
 footer p {
   font-size: 0.8rem;
+  color: #555f77;
 }
 
 /* Responsive Design */
 @media (max-width: 620px) {
-  #current-weather-container {
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 0 0;
+  #search-form {
+    flex-direction: column;
+    gap: 10px;
   }
 
-  #current-temperature {
-    font-size: 5rem;
-  }
-
-  #weather-icon {
-    width: 150px;
-    height: 150px;
-  }
-
-  .forecast-item img {
-    width: 30px;
-    height: 30px;
-  }
-
-  header {
-    margin-bottom: 50px;
-  }
-
-  .search-input {
+  .search-input,
+  .search-button {
     width: 100%;
-    margin-bottom: 1rem;
     border-radius: 20px;
     text-align: center;
   }
 
-  .search-button {
-    width: 100%;
-    border-radius: 20px;
+  #city-container {
+    margin-bottom: 20px;
   }
 
-  /* ! Rude Sentence */
-  #rude-sentence {
-    font-size: 1.2rem;
-  }
-
-  /* ! current-weather container */
   #current-weather-container {
     flex-direction: column;
-    margin-bottom: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #weather-icon-container img {
+    width: 80px;
+    height: 80px;
+  }
+
+  #temperature {
+    margin: 0;
+  }
+
+  .current-temperature {
+    font-size: 2.5rem;
   }
 
   .paragraph {
     text-align: center;
   }
 
-  #city-name {
-    padding-top: 10px;
+  #rude-sentence {
+    font-size: 1.2rem;
   }
 
-  /* City Image */
   #city-img {
-    width: 100%;
-    max-width: 500px;
+    max-width: 100%;
     height: auto;
   }
 }

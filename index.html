@@ -56,7 +56,7 @@ Windy: Mist
       href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <title>The Rude Weather App</title>
   </head>
 
@@ -105,12 +105,17 @@ Windy: Mist
               />
             </div>
             <div id="temperature">
-              <h1 class="current-temperature">27<span id="units">°C</span></h1>
+              <h1>
+                <span class="current-temperature">27</span>
+                <span class="units current-temperature">°C</span>
+              </h1>
             </div>
           </div>
           <div class="current-weather-data">
             <p class="paragraph">
-              <span id="current-weather-condition">Moderate rain</span> <br />
+              <span id="current-weather-condition">Moderate rain</span>, Feels
+              like: <span id="feels-like">11.9</span
+              ><span class="units">°C</span> <br />
               Humidity: <span id="current-humidity">87</span>% | Wind:
               <span id="current-wind">7.2</span>km/h
             </p>
