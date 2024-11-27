@@ -79,11 +79,11 @@ Windy: Mist
 
         <!-- ! city-container -->
         <div id="city-container">
-          <!-- weather icon -->
+          <!-- City Image -->
           <div id="city-img-container">
             <img
               id="city-img"
-              src="https://www.okvoyage.com/wp-content/uploads/2023/10/Paris-en-photos-scaled.jpg"
+              src="https://hips.hearstapps.com/hmg-prod/images/hbz-nyc-index-00-0-1535036341.jpg?crop=0.888888888888889xw:1xh;center,top&resize=2048:*"
               alt="city image"
             />
           </div>
@@ -94,31 +94,34 @@ Windy: Mist
           </div>
         </div>
 
-        <!-- ! Rude-sentence-container -->
-        <p id="sassy-sentence">
-          Well, aren’t you lucky? The sun decided to bless your basic life
-          today.
-        </p>
-
         <!-- ! Current Weather container -->
         <div id="current-weather-container">
-          <div id="weather-icon-container">
-            <img
-              id="weather-icon"
-              src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/shower-rain-day.png"
-              alt="weather icon"
-            />
+          <div id="weather-temp-icon">
+            <div id="weather-icon-container">
+              <img
+                id="weather-icon"
+                src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/shower-rain-day.png"
+                alt="weather icon"
+              />
+            </div>
+            <div id="temperature">
+              <h1 class="current-temperature">27<span id="units">°C</span></h1>
+            </div>
           </div>
           <div class="current-weather-data">
-            <h1 class="current-temperature">27<span id="units">°C</span></h1>
             <p class="paragraph">
-              <span id="current-weather-condition">moderate rain</span> <br />
-              Humidity: <span id="current-humidity">87</span>% <br />
-              Wind: <span id="current-wind">7.2</span>km/h
+              <span id="current-weather-condition">Moderate rain</span> <br />
+              Humidity: <span id="current-humidity">87</span>% | Wind:
+              <span id="current-wind">7.2</span>km/h
             </p>
           </div>
         </div>
       </main>
+
+      <!-- ! Rude-sentence-container -->
+      <p id="rude-sentence">
+        "It’s wet, it’s miserable, and so is your hair. Good day."
+      </p>
 
       <!-- ! weather-forecast-container -->
       <!-- <div id="forecast-weather">
@@ -134,6 +137,9 @@ Windy: Mist
         </p>
       </div> -->
     </div>
+    <footer>
+      <p><small>Open source code by Marine Crouzet</small></p>
+    </footer>
     <script src="./src/index.js"></script>
   </body>
 </html>

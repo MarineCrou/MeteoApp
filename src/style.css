@@ -7,12 +7,19 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #0d1b2a, #1b263b, #415a77);
+  background: #fff8f5;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  color: white;
+  color: #555f77;
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2 {
+  color: #2f4858;
 }
 
 /* Weather App Container */
@@ -20,27 +27,26 @@ body {
   width: 90%;
   max-width: 600px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  background: white;
   border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 20px #ffc7c2;
   text-align: center;
   backdrop-filter: blur(10px);
-  border: 2px solid #ff4500;
+  border: 2px solid #ffc7c2;
   margin: 10px 0;
 }
 
 /* Search Bar */
 #search-form {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .search-input {
   width: 70%;
   padding: 10px;
-  border: none;
+  border: 1px solid #ee6462;
   border-radius: 20px 0 0 20px;
   font-size: 1rem;
-  color: #333;
   outline: none;
 }
 
@@ -48,7 +54,7 @@ body {
   padding: 10px 20px;
   border: none;
   border-radius: 0 20px 20px 0;
-  background-color: #ff4500;
+  background-color: #ee6462;
   color: white;
   font-size: 1.2rem;
   cursor: pointer;
@@ -56,8 +62,7 @@ body {
 }
 
 .search-button:hover {
-  background-color: #ff6347;
-  transform: scale(1.1);
+  background-color: #c5918c;
 }
 
 /* City Image */
@@ -66,20 +71,22 @@ body {
 }
 
 #city-img {
-  width: 100%;
+  width: 500px;
+  height: 350px;
   border-radius: 10px;
   object-fit: cover;
 }
 
 /* City Info */
-#location-info {
-  margin-bottom: 20px;
+#city-info-container {
+  margin-top: 30px;
 }
 
 #city-name {
   font-family: "Abril Fatface", serif;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   text-transform: uppercase;
+  color: #2f4858;
 }
 
 #date-time {
@@ -88,25 +95,31 @@ body {
 }
 
 /* ! Rude Sentence */
-#sassy-sentence {
+#rude-sentence {
   margin: 20px 0;
-  font-weight: 500;
-  font-size: 1rem;
+  padding: 0 50px;
+  font-size: 0.9rem;
+  /* font-weight: 700; */
+  /* font-style: italic; */
   text-align: center;
-  font-style: italic;
-  text-align: center;
-  padding: 0 30px;
-  color: #ff4500;
+  color: #ee6462;
+  font-family: "Abril Fatface", serif;
 }
 
-/* Current Weather */
+/* ! Current Weather */
 #current-weather-container {
-  padding: 20px 0;
   margin-bottom: 20px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
+}
+
+#weather-temp-icon {
+  display: flex;
+  flex: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .current-weather-data {
@@ -115,12 +128,13 @@ body {
 .current-temperature {
   font-size: 3rem;
   font-family: "Abril Fatface", serif;
+  color: #2f4858;
 }
 .paragraph {
   font-size: 0.8rem;
 }
 
-/* Forecast Section */
+/* ! Forecast Section */
 #forecast {
   display: flex;
   justify-content: space-between;
@@ -150,23 +164,28 @@ body {
   font-size: 0.9rem;
 }
 
+footer p {
+  font-size: 0.8rem;
+}
+
 /* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 620px) {
   #current-weather-container {
     margin-bottom: 10px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
+    padding: 0 0;
   }
 
   #current-temperature {
-    font-size: 3rem;
+    font-size: 5rem;
   }
 
   #weather-icon {
-    width: 80px;
-    height: 80px;
+    width: 150px;
+    height: 150px;
   }
 
   .forecast-item img {
@@ -188,5 +207,31 @@ body {
   .search-button {
     width: 100%;
     border-radius: 20px;
+  }
+
+  /* ! Rude Sentence */
+  #rude-sentence {
+    font-size: 1.2rem;
+  }
+
+  /* ! current-weather container */
+  #current-weather-container {
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+
+  .paragraph {
+    text-align: center;
+  }
+
+  #city-name {
+    padding-top: 10px;
+  }
+
+  /* City Image */
+  #city-img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
   }
 }
