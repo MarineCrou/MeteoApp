@@ -45,15 +45,27 @@ let cityDate = () => {
   return formattedDate;
 };
 cityDate();
-console.log(cityDate());
+// console.log(cityDate());
 
-//! 2. Using form to display => name & weather data + icon matching search input
+//! 2. Using search form to display => name & weather data + icon matching search input
+
+let citySearchForm = (event) => {
+  event.preventDefault();
+  //   Get the input from search bar :
+  let searchCity = document.querySelector(".search-input");
+
+  // now get data for searched city
+  let city = searchCity.value;
+  let key = "tf486ac3343a3de0640fb9054f9boe8b";
+  let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${key}&units=metric`;
+  // axios
+  axios.get(weatherAppUrl).then(getCityWeather);
+};
+
+let searchForm = document.getElementById("header-search-form");
+searchForm.addEventListener("submit", citySearchForm);
 
 //! 1. Connect to the shecodes weather API
-
-let city = "La Rochelle";
-let key = "tf486ac3343a3de0640fb9054f9boe8b";
-let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${key}&units=metric`;
 
 let getCityWeather = (response) => {
   let citySearched = response.data.city;
@@ -116,7 +128,7 @@ let getCityWeather = (response) => {
   randomSnowSentence = snowyWeather[randomNumber];
 
   // Displaying sentence & apping
-  console.log(`City Weather Condition: ${cityWeatherCondition}`);
+  //   console.log(`City Weather Condition: ${cityWeatherCondition}`);
   //   cityWeatherCondition = cityWeatherCondition.trim().toLowerCase();
 
   if (cityWeatherCondition === "snow") {
@@ -126,11 +138,8 @@ let getCityWeather = (response) => {
       rudeSentences[cityWeatherCondition] ||
       "The weather is too moody to even comment on! Oh wait, just like your face !";
   }
-  console.log(rudeSentence.innerHTML);
+  //   console.log(rudeSentence.innerHTML);
 };
-
-// axios
-axios.get(weatherAppUrl).then(getCityWeather);
 
 // 5. Get city photos form pexel API
 // 6. Display photo that matches the city
