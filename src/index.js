@@ -5,7 +5,7 @@
 // ? Change units, when clicking on temp units
 //  ? change wind speed units, when change temp units
 
-// 3. Dynamically display the current time of user
+//! 3. Dynamically display the current time of user
 let cityDate = () => {
   let weekDays = [
     "Sunday",
@@ -44,13 +44,14 @@ let cityDate = () => {
 
   return formattedDate;
 };
-
 cityDate();
 console.log(cityDate());
 
-// 1. Connect to the shecodes weather API
+//! 2. Using form to display => name & weather data + icon matching search input
 
-let city = "New York";
+//! 1. Connect to the shecodes weather API
+
+let city = "La Rochelle";
 let key = "tf486ac3343a3de0640fb9054f9boe8b";
 let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${key}&units=metric`;
 
@@ -62,7 +63,6 @@ let getCityWeather = (response) => {
   let cityWeatherCondition = response.data.condition.description;
   let cityWeatherIcon = response.data.condition.icon_url;
   let cityWind = response.data.wind.speed;
-  let cityWeatherIconName = response.data.condition.icon;
 
   let cityDisplayed = document.getElementById("city-name");
   cityDisplayed.innerHTML = citySearched;
@@ -88,13 +88,50 @@ let getCityWeather = (response) => {
 
   let weatherIconDisplayed = document.getElementById("weather-icon");
   weatherIconDisplayed.src = cityWeatherIcon;
+
+  // 4. Match the rude sentences to the weather
+  let rudeSentence = document.getElementById("rude-sentence");
+
+  const rudeSentences = {
+    "clear sky":
+      "Well, aren’t you lucky? The sun decided to bless your basic life today.",
+    "few clouds":
+      "The sky can’t decide what it’s doing, and neither can you apparently.",
+    "scattered clouds": "The sky’s in a funk, just like you before coffee.",
+    "broken clouds": "The sky’s in a funk, just like you before coffee.",
+    "shower rain":
+      "It’s wet, it’s miserable, and so is your hair. Get over it.",
+    rain: "It’s wet, it’s miserable, and so is your hair. Get over it.",
+    thunderstorm:
+      "Drama queen alert: the sky’s throwing a full-blown hissy fit. One thing you've got in common",
+    mist: "The wind’s here to ruin your hair and your mood. You’re welcome.",
+  };
+
+  //   Snowy weather
+  let snowyWeather = [
+    "It’s snowing. Build a snowman, or just let one hit you in the face.",
+    "Winter is here, and so is your excuse to wear that ugly sweater.",
+  ];
+  let randomNumber = Math.floor(Math.random() * snowyWeather.length);
+  randomSnowSentence = snowyWeather[randomNumber];
+
+  // Displaying sentence & apping
+  console.log(`City Weather Condition: ${cityWeatherCondition}`);
+  //   cityWeatherCondition = cityWeatherCondition.trim().toLowerCase();
+
+  if (cityWeatherCondition === "snow") {
+    rudeSentence.innerHTML = randomSnowSentence;
+  } else {
+    rudeSentence.innerHTML =
+      rudeSentences[cityWeatherCondition] ||
+      "The weather is too weird to comment on!";
+  }
+  console.log(rudeSentence.innerHTML);
 };
 
 // axios
 axios.get(weatherAppUrl).then(getCityWeather);
 
-// 2. Display name & weather data + icon matching search input
-// 4. Match the rude sentences to the weather
 // 5. Get city photos form pexel API
 // 6. Display photo that matches the city
 // 7. Display the weather forecast
