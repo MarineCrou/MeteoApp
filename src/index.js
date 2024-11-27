@@ -124,7 +124,7 @@ let getCityWeather = (response) => {
   } else {
     rudeSentence.innerHTML =
       rudeSentences[cityWeatherCondition] ||
-      "The weather is too weird to comment on!";
+      "The weather is too moody to even comment on! Oh wait, just like your face !";
   }
   console.log(rudeSentence.innerHTML);
 };
