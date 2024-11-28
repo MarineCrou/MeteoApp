@@ -69,6 +69,14 @@ body {
   background-color: #c5918c;
 }
 
+#error-message {
+  color: #ee6462;
+  font-style: italic;
+  font-size: 0.9em;
+  font-weight: bold;
+  padding-top: 20px;
+}
+
 /* City Container */
 #city-container {
   display: flex;

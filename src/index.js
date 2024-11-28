@@ -1,9 +1,13 @@
-// MVP :
+// 🐛 to fix :
+// get error message to display a random sentence, when user mistypes
+// get page to reload before a new search is submitted || get page to display, once an typo error made, all html content on page
+// hide upslash & shecodes unique keys
 
 // ? Additional
 // ? Get the time to match the location ?? => necessary ?
+// ? Get geolocalisation ?
 // ? Change units, when clicking on temp units
-//  ? change wind speed units, when change temp units
+// ? change wind speed units, when change temp units
 
 //! 3. Dynamically display the current time of user
 let cityDate = () => {
@@ -80,7 +84,7 @@ let getCityPhoto = (response) => {
     console.log(`Seems like that city isn't worth displaying a photo of 🤷‍♀️!`);
     let newPhoto = document.querySelector("#city-img");
     newPhoto.src =
-      "https://img.freepik.com/free-vector/404-error-background-with-thief-flat-style_23-2147761282.jpg?t=st=1732778387~exp=1732781987~hmac=fe54c17e7b3c5c817437d9d1a323f2a0aecfb5987d83babdcf05b74404ae2cb6&w=1380";
+      "https://img.freepik.com/premium-vector/looking-city-from-terrace-error-404-flash-message-woman-umbrella-website-landing-page-ui-design-found-image-dreamy-vibes-vector-flat-illustration-concept-with-90s-retro-background_151150-18106.jpg";
   }
 };
 
@@ -139,6 +143,17 @@ let getCityWeather = (response) => {
       mist: "The wind’s here to ruin your hair and your mood. You’re welcome.",
     };
 
+    // error messages
+    // const errorMessages = [
+    //   "Even Google Maps wouldn’t know where that is. Try again!",
+    //   "I’m a weather app, not a mind reader. Try again!",
+    //   "You had one job… type a city. Let’s try that again!",
+    // ];
+
+    // let errorSentence = [Mathfloor(Math.random() * errorMessages.length)];
+    // let randomErrorSentence = errorMessages[errorSentence];
+    // console.log(randomErrorSentence);
+
     //   Snowy weather
     let snowyWeather = [
       "It’s snowing. Build a snowman, or just let one hit you in the face.",
@@ -161,10 +176,16 @@ let getCityWeather = (response) => {
     //   console.log(rudeSentence.innerHTML);
   } else {
     console.log(`Error - city not recognised`);
-    let cityDisplayed = document.getElementById("city-name");
-    cityDisplayed.innerHTML = `What are you doing ? Type in a real city !`;
+    let errorMessage = document.getElementById("error-message");
+    errorMessage.innerHTML =
+      "Even Google Maps wouldn’t know where that is. Try again!";
+    // console.log(randomErrorSentence);
+    document.getElementById("city-info-container").style.display = "none";
+    document.getElementById("current-weather-container").style.display = "none";
+    document.getElementById("rude-sentence").style.display = "none";
+    document.getElementById("forecast-container").style.display = "none";
   }
 };
+// location.reload();
 
 // ! 7. Display the weather forecast
-
