@@ -122,9 +122,8 @@ let getCityWeather = (response) => {
     let weatherIconDisplayed = document.getElementById("weather-icon");
     weatherIconDisplayed.src = cityWeatherIcon;
 
-    // 4. Match the rude sentences to the weather
+    // ! 4. Match the rude sentences to the weather
     let rudeSentence = document.getElementById("rude-sentence");
-
     const rudeSentences = {
       "clear sky":
         "Well, aren’t you lucky? The sun decided to bless your basic life today.",
@@ -161,10 +160,11 @@ let getCityWeather = (response) => {
     }
     //   console.log(rudeSentence.innerHTML);
   } else {
-    console.log(`What the hell was that ? That's def. not a real city`);
+    console.log(`Error - city not recognised`);
     let cityDisplayed = document.getElementById("city-name");
     cityDisplayed.innerHTML = `What are you doing ? Type in a real city !`;
   }
 };
 
-// 7. Display the weather forecast
+// ! 7. Display the weather forecast
+
