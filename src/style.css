@@ -158,6 +158,11 @@ body {
   color: #555f77;
 }
 
+#current-weather-condition {
+  /* text-transform: uppercase; */
+  font-family: "Abril Fatface", serif;
+}
+
 /* Rude Sentence */
 #rude-sentence {
   margin: 20px 0;
