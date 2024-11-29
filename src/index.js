@@ -72,13 +72,21 @@ function getPosition(position) {
   axios.get(weatherAppUrl).then(getCityWeather);
 
   let unsplashAccessKey = "hct-CcHoeMVomcAz1Zf7GoYeegE67Id87NG28ldckgo";
-  let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=1&page=1&orientation=landscape&client_id=${unsplashAccessKey}`;
+  let randomNumber = Math.floor(Math.random() * 10) + 1;
+  let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=${randomNumber}&page=${randomPage}&orientation=landscape&client_id=${unsplashAccessKey}`;
   axios.get(photoURL).then(getCityPhoto);
 }
 
 //! 2. Using search form to display => name & weather data + icon matching search input
 let citySearchForm = (event) => {
   event.preventDefault();
+
+  // Clear the error message
+  let errorMessage = document.getElementById("error-message");
+  if (errorMessage) {
+    errorMessage.innerHTML = "";
+  }
+
   let searchCity = document.querySelector(".search-input");
 
   // Weather API
@@ -86,12 +94,31 @@ let citySearchForm = (event) => {
   let key = "tf486ac3343a3de0640fb9054f9boe8b";
   let units = "metric";
   let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${key}&units=${units}`;
-  axios.get(weatherAppUrl).then(getCityWeather);
+  axios
+    .get(weatherAppUrl)
+    .then(getCityWeather)
+    .catch(() => {
+      let errorMessage = document.getElementById("error-message");
+      const errorMessages = [
+        "Even Google Maps wouldn’t know where that is. Try again!",
+        "I’m a weather app, not a mind reader. Try again!",
+        "You had one job… type a city. Let’s try that again!",
+      ];
+      let randomSentence = Math.floor(Math.random() * errorMessages.length);
+      errorMessage.innerHTML = errorMessages[randomSentence];
+    });
 
   //   photo API - //! 5. Get city photos form unsplash API
   let unsplashAccessKey = "hct-CcHoeMVomcAz1Zf7GoYeegE67Id87NG28ldckgo";
   let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=1&page=1&orientation=landscape&client_id=${unsplashAccessKey}`;
-  axios.get(photoURL).then(getCityPhoto);
+  axios
+    .get(photoURL)
+    .then(getCityPhoto)
+    .catch(() => {
+      let newPhoto = document.querySelector("#city-img");
+      newPhoto.src =
+        "https://img.freepik.com/premium-vector/looking-city-from-terrace-error-404-flash-message-woman-umbrella-website-landing-page-ui-design-found-image-dreamy-vibes-vector-flat-illustration-concept-with-90s-retro-background_151150-18106.jpg";
+    });
 };
 
 let searchForm = document.getElementById("header-search-form");
@@ -100,6 +127,19 @@ searchForm.addEventListener("submit", citySearchForm);
 //! 1. Connect to the shecodes weather API
 let getCityWeather = (response) => {
   let citySearched = response.data.city;
+  if (citySearched) {
+    let errorMessage = document.getElementById("error-message");
+    if (errorMessage) {
+      errorMessage.innerHTML = ""; // Clear any previous error messages
+      document.getElementById("city-info-container").style.visibility =
+        "visible";
+      document.getElementById("current-weather-container").style.visibility =
+        "visible";
+      document.getElementById("rude-sentence").style.visibility = "visible";
+      document.getElementById("forecast-container").style.visibility =
+        "visible";
+    }
+  }
 
   if (typeof citySearched !== "undefined") {
     let cityTemperature = response.data.temperature.current;
@@ -151,31 +191,14 @@ let getCityWeather = (response) => {
       mist: "The wind’s here to ruin your hair and your mood. You’re welcome.",
     };
 
-    // error messages
-    // const errorMessages = [
-    //   "Even Google Maps wouldn’t know where that is. Try again!",
-    //   "I’m a weather app, not a mind reader. Try again!",
-    //   "You had one job… type a city. Let’s try that again!",
-    // ];
-
-    // let errorSentence = [Mathfloor(Math.random() * errorMessages.length)];
-    // let randomErrorSentence = errorMessages[errorSentence];
-    // console.log(randomErrorSentence);
-
     //   Snowy weather
-    let snowyWeather = [
-      "It’s snowing. Build a snowman, or just let one hit you in the face.",
-      "Winter is here, and so is your excuse to wear that ugly sweater.",
-    ];
-    let randomNumber = Math.floor(Math.random() * snowyWeather.length);
-    randomSnowSentence = snowyWeather[randomNumber];
-
-    // Displaying sentence & apping
-    //   console.log(`City Weather Condition: ${cityWeatherCondition}`);
-    //   cityWeatherCondition = cityWeatherCondition.trim().toLowerCase();
-
     if (cityWeatherCondition === "snow") {
-      rudeSentence.innerHTML = randomSnowSentence;
+      let snowyWeather = [
+        "It’s snowing. Build a snowman, or just let one hit you in the face.",
+        "Winter is here, and so is your excuse to wear that ugly sweater.",
+      ];
+      let randomNumber = Math.floor(Math.random() * snowyWeather.length);
+      rudeSentence.innerHTML = snowyWeather[randomNumber];
     } else {
       rudeSentence.innerHTML =
         rudeSentences[cityWeatherCondition] ||
@@ -185,13 +208,18 @@ let getCityWeather = (response) => {
   } else {
     console.log(`Error - city not recognised`);
     let errorMessage = document.getElementById("error-message");
-    errorMessage.innerHTML =
-      "Even Google Maps wouldn’t know where that is. Try again!";
-    // console.log(randomErrorSentence);
-    document.getElementById("city-info-container").style.display = "none";
-    document.getElementById("current-weather-container").style.display = "none";
-    document.getElementById("rude-sentence").style.display = "none";
-    document.getElementById("forecast-container").style.display = "none";
+    const errorMessages = [
+      "Even Google Maps wouldn’t know where that is. Try again!",
+      "I’m a weather app, not a mind reader. Try again!",
+      "You had one job… type a city. Let’s try that again!",
+    ];
+    let randomSentence = Math.floor(Math.random() * errorMessages.length);
+    errorMessage.innerHTML = errorMessages[randomSentence];
+    document.getElementById("city-info-container").style.visibility = "hidden";
+    document.getElementById("current-weather-container").style.visibility =
+      "hidden";
+    document.getElementById("rude-sentence").style.visibility = "hidden";
+    document.getElementById("forecast-container").style.visibility = "hidden";
   }
 };
 
@@ -209,7 +237,5 @@ let getCityPhoto = (response) => {
       "https://img.freepik.com/premium-vector/looking-city-from-terrace-error-404-flash-message-woman-umbrella-website-landing-page-ui-design-found-image-dreamy-vibes-vector-flat-illustration-concept-with-90s-retro-background_151150-18106.jpg";
   }
 };
-
-// location.reload();
 
 // ! 7. Display the weather forecast
