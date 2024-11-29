@@ -68,7 +68,7 @@ function getPosition(position) {
   axios.get(weatherAppUrl).then(getCityWeather);
 
   let randomNumber = Math.floor(Math.random() * 10) + 1;
-  let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=${randomNumber}&page=${randomPage}&orientation=landscape&client_id=${UNSPLASH_API_KEY}`;
+  let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=1&page=1&orientation=landscape&client_id=${UNSPLASH_API_KEY}`;
   axios.get(photoURL).then(getCityPhoto);
 }
 
