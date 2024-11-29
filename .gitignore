@@ -1,0 +1,12 @@
+# Ignore API keys
+config.js
+
+# Ignore Node.js dependencies
+node_modules/
+
+# Ignore system files
+.DS_Store
+
+# Ignore build files
+/dist
+/build
