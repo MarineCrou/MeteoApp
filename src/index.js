@@ -5,6 +5,8 @@
 
 // ? Additional
 // ? Get the time to match the location ?? => necessary ?
+// ? Geolocalisation button
+// ? onload display data from current user position
 // ? Get geolocalisation ?
 // ? Change units, when clicking on temp units
 // ? change wind speed units, when change temp units
@@ -50,11 +52,33 @@ let cityDate = () => {
 };
 setInterval(cityDate, 1000);
 
-//! 2. Using search form to display => name & weather data + icon matching search input
+// ! 8. geolocalisation
+// onload the page should display the user's weather
+// on load : 1. get uer location (with function getLocation)
 
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(getPosition);
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+
+function getPosition(position) {
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let key = "tf486ac3343a3de0640fb9054f9boe8b";
+  let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${key}`;
+  axios.get(weatherAppUrl).then(getCityWeather);
+
+  let unsplashAccessKey = "hct-CcHoeMVomcAz1Zf7GoYeegE67Id87NG28ldckgo";
+  let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=1&page=1&orientation=landscape&client_id=${unsplashAccessKey}`;
+  axios.get(photoURL).then(getCityPhoto);
+}
+
+//! 2. Using search form to display => name & weather data + icon matching search input
 let citySearchForm = (event) => {
   event.preventDefault();
-  //   Get the input from search bar :
   let searchCity = document.querySelector(".search-input");
 
   // Weather API
@@ -73,23 +97,7 @@ let citySearchForm = (event) => {
 let searchForm = document.getElementById("header-search-form");
 searchForm.addEventListener("submit", citySearchForm);
 
-//! 6. Display photo that matches the city
-let getCityPhoto = (response) => {
-  if (response.data.results.length > 0) {
-    let firstPhoto = response.data.results[0].urls.raw;
-    console.log(response.data.results[0].urls.raw);
-    let newPhoto = document.querySelector("#city-img");
-    newPhoto.src = firstPhoto;
-  } else {
-    console.log(`Seems like that city isn't worth displaying a photo of 🤷‍♀️!`);
-    let newPhoto = document.querySelector("#city-img");
-    newPhoto.src =
-      "https://img.freepik.com/premium-vector/looking-city-from-terrace-error-404-flash-message-woman-umbrella-website-landing-page-ui-design-found-image-dreamy-vibes-vector-flat-illustration-concept-with-90s-retro-background_151150-18106.jpg";
-  }
-};
-
 //! 1. Connect to the shecodes weather API
-
 let getCityWeather = (response) => {
   let citySearched = response.data.city;
 
@@ -126,7 +134,7 @@ let getCityWeather = (response) => {
     let weatherIconDisplayed = document.getElementById("weather-icon");
     weatherIconDisplayed.src = cityWeatherIcon;
 
-    // ! 4. Match the rude sentences to the weather
+    // 4. Match the rude sentences to the weather
     let rudeSentence = document.getElementById("rude-sentence");
     const rudeSentences = {
       "clear sky":
@@ -186,6 +194,22 @@ let getCityWeather = (response) => {
     document.getElementById("forecast-container").style.display = "none";
   }
 };
+
+//! 6. Display photo that matches the city
+let getCityPhoto = (response) => {
+  if (response.data.results.length > 0) {
+    let firstPhoto = response.data.results[0].urls.raw;
+    console.log(response.data.results[0].urls.raw);
+    let newPhoto = document.querySelector("#city-img");
+    newPhoto.src = firstPhoto;
+  } else {
+    console.log(`Seems like that city isn't worth displaying a photo of 🤷‍♀️!`);
+    let newPhoto = document.querySelector("#city-img");
+    newPhoto.src =
+      "https://img.freepik.com/premium-vector/looking-city-from-terrace-error-404-flash-message-woman-umbrella-website-landing-page-ui-design-found-image-dreamy-vibes-vector-flat-illustration-concept-with-90s-retro-background_151150-18106.jpg";
+  }
+};
+
 // location.reload();
 
 // ! 7. Display the weather forecast
