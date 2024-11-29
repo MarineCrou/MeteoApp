@@ -1,15 +1,12 @@
 // 🐛 to fix :
-// get error message to display a random sentence, when user mistypes
-// get page to reload before a new search is submitted || get page to display, once an typo error made, all html content on page
 // hide upslash & shecodes unique keys
 
 // ? Additional
-// ? Get the time to match the location ?? => necessary ?
-// ? Geolocalisation button
 // ? onload display data from current user position
-// ? Get geolocalisation ?
 // ? Change units, when clicking on temp units
 // ? change wind speed units, when change temp units
+
+import { SHECODES_API_KEY, UNSPLASH_API_KEY } from "./config.js";
 
 //! 3. Dynamically display the current time of user
 let cityDate = () => {
@@ -56,24 +53,22 @@ setInterval(cityDate, 1000);
 // onload the page should display the user's weather
 // on load : 1. get uer location (with function getLocation)
 
-function getLocation() {
+window.getLocation = function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getPosition);
   } else {
     console.log("Geolocation is not supported by this browser.");
   }
-}
+};
 
 function getPosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
-  let key = "tf486ac3343a3de0640fb9054f9boe8b";
-  let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${key}`;
+  let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${SHECODES_API_KEY}`;
   axios.get(weatherAppUrl).then(getCityWeather);
 
-  let unsplashAccessKey = "hct-CcHoeMVomcAz1Zf7GoYeegE67Id87NG28ldckgo";
   let randomNumber = Math.floor(Math.random() * 10) + 1;
-  let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=${randomNumber}&page=${randomPage}&orientation=landscape&client_id=${unsplashAccessKey}`;
+  let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=${randomNumber}&page=${randomPage}&orientation=landscape&client_id=${UNSPLASH_API_KEY}`;
   axios.get(photoURL).then(getCityPhoto);
 }
 
@@ -91,9 +86,8 @@ let citySearchForm = (event) => {
 
   // Weather API
   let city = searchCity.value;
-  let key = "tf486ac3343a3de0640fb9054f9boe8b";
   let units = "metric";
-  let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${key}&units=${units}`;
+  let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${SHECODES_API_KEY}&units=${units}`;
   axios
     .get(weatherAppUrl)
     .then(getCityWeather)
@@ -109,8 +103,7 @@ let citySearchForm = (event) => {
     });
 
   //   photo API - //! 5. Get city photos form unsplash API
-  let unsplashAccessKey = "hct-CcHoeMVomcAz1Zf7GoYeegE67Id87NG28ldckgo";
-  let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=1&page=1&orientation=landscape&client_id=${unsplashAccessKey}`;
+  let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=1&page=1&orientation=landscape&client_id=${UNSPLASH_API_KEY}`;
   axios
     .get(photoURL)
     .then(getCityPhoto)
