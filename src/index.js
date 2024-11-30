@@ -1,5 +1,6 @@
 // 🐛 to fix :
 // hide upslash & shecodes unique keys
+// On geolocalisation, need to feature right photo => line 68, calling city, where city is not defined !!
 
 // ? Additional
 // ? onload display data from current user position
@@ -50,9 +51,6 @@ let cityDate = () => {
 setInterval(cityDate, 1000);
 
 // ! 8. geolocalisation
-// onload the page should display the user's weather
-// on load : 1. get uer location (with function getLocation)
-
 window.getLocation = function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getPosition);
@@ -67,8 +65,8 @@ function getPosition(position) {
   let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${SHECODES_API_KEY}`;
   axios.get(weatherAppUrl).then(getCityWeather);
 
-  let randomNumber = Math.floor(Math.random() * 10) + 1;
   let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=1&page=1&orientation=landscape&client_id=${UNSPLASH_API_KEY}`;
+  console.log(photoURL);
   axios.get(photoURL).then(getCityPhoto);
 }
 
@@ -232,3 +230,27 @@ let getCityPhoto = (response) => {
 };
 
 // ! 7. Display the weather forecast
+
+let displayForecast = () => {
+  let forecastDays = ["Sunday", "Monday", "Tuesday", "Wednesday"];
+  let forecastHtml = "";
+
+  forecastDays.forEach((day) => {
+    forecastHtml =
+      forecastHtml +
+      `<div class="forecast-item">
+    <p class="forecast-day">${day}</p>
+    <img
+    src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"
+    alt="weather icon"
+    class="forecast-icon"
+    />
+    <p class="forecast-temp">9° 23°C</p>
+    </div>`;
+  });
+
+  let forecast = document.querySelector("#forecast-container");
+  forecast.innerHTML = forecastHtml;
+};
+
+displayForecast();
