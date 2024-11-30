@@ -1,9 +1,7 @@
 // 🐛 to fix :
-// hide upslash & shecodes unique keys
 // On geolocalisation, need to feature right photo => line 68, calling city, where city is not defined !!
 
 // ? Additional
-// ? onload display data from current user position
 // ? Change units, when clicking on temp units
 // ? change wind speed units, when change temp units
 
@@ -50,7 +48,7 @@ let cityDate = () => {
 };
 setInterval(cityDate, 1000);
 
-// ! 8. geolocalisation
+// ! 8. Geolocation
 window.getLocation = function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getPosition);
@@ -70,7 +68,7 @@ function getPosition(position) {
   axios.get(photoURL).then(getCityPhoto);
 }
 
-//! 2. Using search form to display => name & weather data + icon matching search input
+//! 2. Using search form to display => weather data + photo matching city
 let citySearchForm = (event) => {
   event.preventDefault();
 
@@ -110,6 +108,11 @@ let citySearchForm = (event) => {
       newPhoto.src =
         "https://img.freepik.com/premium-vector/looking-city-from-terrace-error-404-flash-message-woman-umbrella-website-landing-page-ui-design-found-image-dreamy-vibes-vector-flat-illustration-concept-with-90s-retro-background_151150-18106.jpg";
     });
+
+  // forecast API
+  let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${SHECODES_API_KEY}&units=${units}`;
+  axios.get(forecastUrl).then(displayForecast);
+  console.log(forecastUrl);
 };
 
 let searchForm = document.getElementById("header-search-form");
