@@ -1,5 +1,5 @@
 // 🐛 to fix :
-// On geolocalisation, need to feature :
+// On geolocation, need to feature :
 // 1. right photo => line 68, calling city, where city is not defined !!
 // 2. Weather forecast
 
@@ -58,51 +58,71 @@ let cityDate = () => {
 setInterval(cityDate, 1000);
 
 // ! 8. Geolocation
-function getLocation() {
+function getLocation(city, units) {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(success, error);
-    getGeoData();
-    displayForecast();
+    navigator.geolocation.getCurrentPosition(getLocationCoordinates, error);
   } else {
-    console.log("Geolocation is not supported by this browser.");
+    let error = document.getElementById("error-message");
+    error.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
-
-function success(position) {
+// ! Get coordiniates
+function getLocationCoordinates(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
+
   let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${SHECODES_API_KEY}`;
-  console.log(weatherAppUrl);
-  axios.get(weatherAppUrl).then(fetchAndDisplayWeather);
+  axios.get(weatherAppUrl).then((response) => {
+    fetchAndDisplayWeather(response);
+
+    let city = response.data.city;
+    let units = "metric";
+
+    getForecastWeather(city, units);
+    getPhoto(city);
+  });
 }
 
 function error() {
   console.log("Sorry, no position available.");
 }
 
-let getGeoData = (city) => {
+// ! Get Photo from API
+let getPhoto = (city) => {
   let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=1&page=1&orientation=landscape&client_id=${UNSPLASH_API_KEY}`;
-  console.log(photoURL);
-  axios.get(photoURL).then(getCityPhoto);
+  axios
+    .get(photoURL)
+    .then(getCityPhoto)
+    .catch(() => {
+      let newPhoto = document.querySelector("#city-img");
+      newPhoto.src =
+        "https://img.freepik.com/premium-vector/looking-city-from-terrace-error-404-flash-message-woman-umbrella-website-landing-page-ui-design-found-image-dreamy-vibes-vector-flat-illustration-concept-with-90s-retro-background_151150-18106.jpg";
+    });
+};
+
+// !Get forecast API
+let getForecastWeather = (city, units) => {
+  let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${SHECODES_API_KEY}&units=${units}`;
+  console.log(forecastUrl);
+  axios.get(forecastUrl).then(displayForecast);
 };
 
 //! 2. Using search form to display => weather data + photo matching city
-let citySearchForm = (event) => {
+let getCityFromForm = (event) => {
   event.preventDefault();
 
-  // Clear the error message
+  // Clear the error potenrtial previous messagemessage
   let errorMessage = document.getElementById("error-message");
   if (errorMessage) {
     errorMessage.innerHTML = "";
   }
 
+  // get the city from search form
   let searchCity = document.querySelector(".search-input");
-
-  // Weather API
   let city = searchCity.value;
   let units = "metric";
   let currentWeatherUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${SHECODES_API_KEY}&units=${units}`;
-  console.log(currentWeatherUrl);
+  // console.log(currentWeatherUrl);
   axios
     .get(currentWeatherUrl)
     .then(fetchAndDisplayWeather)
@@ -118,24 +138,14 @@ let citySearchForm = (event) => {
     });
 
   //   photo API - //! 5. Get city photos form unsplash API
-  let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=1&page=1&orientation=landscape&client_id=${UNSPLASH_API_KEY}`;
-  axios
-    .get(photoURL)
-    .then(getCityPhoto)
-    .catch(() => {
-      let newPhoto = document.querySelector("#city-img");
-      newPhoto.src =
-        "https://img.freepik.com/premium-vector/looking-city-from-terrace-error-404-flash-message-woman-umbrella-website-landing-page-ui-design-found-image-dreamy-vibes-vector-flat-illustration-concept-with-90s-retro-background_151150-18106.jpg";
-    });
+  getPhoto(city);
 
   // forecast API
-  let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${SHECODES_API_KEY}&units=${units}`;
-  axios.get(forecastUrl).then(displayForecast);
-  console.log(forecastUrl);
+  getForecastWeather(city, units);
 };
 
 let searchForm = document.getElementById("header-search-form");
-searchForm.addEventListener("submit", citySearchForm);
+searchForm.addEventListener("submit", getCityFromForm);
 
 //! 1. Connect to the shecodes weather API
 let fetchAndDisplayWeather = (response) => {
@@ -240,7 +250,7 @@ let fetchAndDisplayWeather = (response) => {
 let getCityPhoto = (response) => {
   if (response.data.results.length > 0) {
     let firstPhoto = response.data.results[0].urls.raw;
-    console.log(response.data.results[0].urls.raw);
+    // console.log(response.data.results[0].urls.raw);
     let newPhoto = document.querySelector("#city-img");
     newPhoto.src = firstPhoto;
   } else {
@@ -288,3 +298,5 @@ let displayForecast = (response) => {
   let forecast = document.querySelector("#forecast-container");
   forecast.innerHTML = forecastHtml;
 };
+
+getLocation();
