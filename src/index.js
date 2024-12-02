@@ -8,8 +8,7 @@
 // ? change wind speed units, when change temp units
 
 // import { SHECODES_API_KEY, UNSPLASH_API_KEY } from "./config.js";
-const SHECODES_API_KEY = process.env.SHECODES_API_KEY;
-const UNSPLASH_API_KEY = process.env.UNSPLASH_API_KEY;
+import { SHECODES_API_KEY, UNSPLASH_API_KEY } from "./config1";
 
 //! 3. Dynamically display the current time of user
 let cityDate = () => {
