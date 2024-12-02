@@ -1,5 +1,7 @@
 // 🐛 to fix :
-// On geolocalisation, need to feature right photo => line 68, calling city, where city is not defined !!
+// On geolocalisation, need to feature :
+// 1. right photo => line 68, calling city, where city is not defined !!
+// 2. Weather forecast
 
 // ? Additional
 // ? Change units, when clicking on temp units
@@ -61,12 +63,16 @@ function getPosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${SHECODES_API_KEY}`;
-  axios.get(weatherAppUrl).then(getCityWeather);
+  axios.get(weatherAppUrl).then(fetchAndDisplayWeather);
+  getGeoData();
+  displayForecast();
+}
 
+let getGeoData = (city) => {
   let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=1&page=1&orientation=landscape&client_id=${UNSPLASH_API_KEY}`;
   console.log(photoURL);
   axios.get(photoURL).then(getCityPhoto);
-}
+};
 
 //! 2. Using search form to display => weather data + photo matching city
 let citySearchForm = (event) => {
@@ -83,10 +89,10 @@ let citySearchForm = (event) => {
   // Weather API
   let city = searchCity.value;
   let units = "metric";
-  let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${SHECODES_API_KEY}&units=${units}`;
+  let currentWeatherUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${SHECODES_API_KEY}&units=${units}`;
   axios
-    .get(weatherAppUrl)
-    .then(getCityWeather)
+    .get(currentWeatherUrl)
+    .then(fetchAndDisplayWeather)
     .catch(() => {
       let errorMessage = document.getElementById("error-message");
       const errorMessages = [
@@ -119,7 +125,7 @@ let searchForm = document.getElementById("header-search-form");
 searchForm.addEventListener("submit", citySearchForm);
 
 //! 1. Connect to the shecodes weather API
-let getCityWeather = (response) => {
+let fetchAndDisplayWeather = (response) => {
   let citySearched = response.data.city;
   if (citySearched) {
     let errorMessage = document.getElementById("error-message");
@@ -234,26 +240,38 @@ let getCityPhoto = (response) => {
 
 // ! 7. Display the weather forecast
 
-let displayForecast = () => {
-  let forecastDays = ["Sunday", "Monday", "Tuesday", "Wednesday"];
+let displayForecast = (response) => {
+  let forecastData = response.data.daily;
+  console.log(forecastData);
+
   let forecastHtml = "";
 
-  forecastDays.forEach((day) => {
-    forecastHtml =
-      forecastHtml +
-      `<div class="forecast-item">
-    <p class="forecast-day">${day}</p>
-    <img
-    src="https://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"
-    alt="weather icon"
-    class="forecast-icon"
-    />
-    <p class="forecast-temp">9° 23°C</p>
-    </div>`;
+  forecastData.forEach((day, index) => {
+    let minTemp = Math.round(day.temperature.minimum);
+    let maxTemp = Math.round(day.temperature.maximum);
+    let cityWeatherIcon = day.condition.icon_url;
+    let weatherDescription = day.condition.description;
+
+    let timeStamp = day.time;
+    let dateTimeStamp = new Date(timeStamp * 1000);
+    let weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    let weekDay = weekDays[dateTimeStamp.getDay()];
+
+    if (index > 0 && index < 6) {
+      forecastHtml =
+        forecastHtml +
+        `<div class="forecast-item">
+      <p class="forecast-day">${weekDay}</p>
+      <img
+      src="${cityWeatherIcon}"
+      alt="${weatherDescription}"
+      class="forecast-icon"
+      />
+      <p class="forecast-temp">${minTemp}° - ${maxTemp}°C</p>
+      </div>`;
+    }
   });
 
   let forecast = document.querySelector("#forecast-container");
   forecast.innerHTML = forecastHtml;
 };
-
-displayForecast();
