@@ -9,12 +9,12 @@
 
 import { SHECODES_API_KEY, UNSPLASH_API_KEY } from "./config.js";
 
-const SHECODES_API_KEY = window.ENV.SHECODES_API_KEY;
-const UNSPLASH_API_KEY = window.ENV.UNSPLASH_API_KEY;
+// const SHECODES_API_KEY = window.ENV.SHECODES_API_KEY;
+// const UNSPLASH_API_KEY = window.ENV.UNSPLASH_API_KEY;
 
-if (!SHECODES_API_KEY || !UNSPLASH_API_KEY) {
-  console.error("API keys are missing or not defined.");
-}
+// if (!SHECODES_API_KEY || !UNSPLASH_API_KEY) {
+//   console.error("API keys are missing or not defined.");
+// }
 
 //! 3. Dynamically display the current time of user
 let cityDate = () => {
