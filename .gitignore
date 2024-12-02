@@ -1,5 +1,5 @@
 # Ignore API keys
-config.js
+
 
 # Ignore Node.js dependencies
 node_modules/

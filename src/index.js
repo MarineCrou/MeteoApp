@@ -7,7 +7,7 @@
 // ? Change units, when clicking on temp units
 // ? change wind speed units, when change temp units
 
-// import { SHECODES_API_KEY, UNSPLASH_API_KEY } from "./config.js";
+import { SHECODES_API_KEY, UNSPLASH_API_KEY } from "./config.js";
 
 const SHECODES_API_KEY = window.ENV.SHECODES_API_KEY;
 const UNSPLASH_API_KEY = window.ENV.UNSPLASH_API_KEY;
@@ -58,13 +58,13 @@ let cityDate = () => {
 setInterval(cityDate, 1000);
 
 // ! 8. Geolocation
-window.getLocation = function getLocation() {
+function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(getPosition);
   } else {
     console.log("Geolocation is not supported by this browser.");
   }
-};
+}
 
 function getPosition(position) {
   let lat = position.coords.latitude;
