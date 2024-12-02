@@ -11,7 +11,10 @@
 
 const SHECODES_API_KEY = window.ENV.SHECODES_API_KEY;
 const UNSPLASH_API_KEY = window.ENV.UNSPLASH_API_KEY;
-console.log(SHECODES_API_KEY, UNSPLASH_API_KEY);
+
+if (!SHECODES_API_KEY || !UNSPLASH_API_KEY) {
+  console.error("API keys are missing or not defined.");
+}
 
 //! 3. Dynamically display the current time of user
 let cityDate = () => {
@@ -67,6 +70,7 @@ function getPosition(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${SHECODES_API_KEY}`;
+  console.log(weatherAppUrl);
   axios.get(weatherAppUrl).then(fetchAndDisplayWeather);
   getGeoData();
   displayForecast();
@@ -94,6 +98,7 @@ let citySearchForm = (event) => {
   let city = searchCity.value;
   let units = "metric";
   let currentWeatherUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${SHECODES_API_KEY}&units=${units}`;
+  console.log(currentWeatherUrl);
   axios
     .get(currentWeatherUrl)
     .then(fetchAndDisplayWeather)
