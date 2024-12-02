@@ -60,20 +60,24 @@ setInterval(cityDate, 1000);
 // ! 8. Geolocation
 function getLocation() {
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(getPosition);
+    navigator.geolocation.getCurrentPosition(success, error);
+    getGeoData();
+    displayForecast();
   } else {
     console.log("Geolocation is not supported by this browser.");
   }
 }
 
-function getPosition(position) {
+function success(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let weatherAppUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${SHECODES_API_KEY}`;
   console.log(weatherAppUrl);
   axios.get(weatherAppUrl).then(fetchAndDisplayWeather);
-  getGeoData();
-  displayForecast();
+}
+
+function error() {
+  console.log("Sorry, no position available.");
 }
 
 let getGeoData = (city) => {

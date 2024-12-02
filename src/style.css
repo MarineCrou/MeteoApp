@@ -169,16 +169,16 @@ body {
 }
 
 #current-weather-condition {
-  /* text-transform: uppercase; */
-  font-family: "Abril Fatface", serif;
+  text-transform: capitalize;
+  font-weight: 700;
   font-style: toUpperCase;
 }
 
 /* Rude Sentence */
 #rude-sentence {
-  margin: 20px 0;
+  margin: 40px 0;
   padding: 0 80px;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 700;
   font-style: italic;
   color: #ee6462;
@@ -223,7 +223,7 @@ body {
 }
 
 .forecast-temp {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #ee6462;
   font-weight: bold;
 }
