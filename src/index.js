@@ -66,7 +66,7 @@ function getLocation(city, units) {
     error.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
-// ! Get coordiniates
+// Get coordiniates
 function getLocationCoordinates(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
@@ -87,7 +87,7 @@ function error() {
   console.log("Sorry, no position available.");
 }
 
-// ! Get Photo from API
+// Get Photo from API
 let getPhoto = (city) => {
   let photoURL = `https://api.unsplash.com/search/photos?query=${city}&per_page=1&page=1&orientation=landscape&client_id=${UNSPLASH_API_KEY}`;
   axios
@@ -100,14 +100,14 @@ let getPhoto = (city) => {
     });
 };
 
-// !Get forecast API
+// Get forecast API
 let getForecastWeather = (city, units) => {
   let forecastUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${SHECODES_API_KEY}&units=${units}`;
   console.log(forecastUrl);
   axios.get(forecastUrl).then(displayForecast);
 };
 
-//! 2. Using search form to display => weather data + photo matching city
+//! Display current weather
 let getCityFromForm = (event) => {
   event.preventDefault();
 
@@ -137,10 +137,10 @@ let getCityFromForm = (event) => {
       errorMessage.innerHTML = errorMessages[randomSentence];
     });
 
-  //   photo API - //! 5. Get city photos form unsplash API
+  //   Display Photo
   getPhoto(city);
 
-  // forecast API
+  // Display Forecast
   getForecastWeather(city, units);
 };
 
@@ -238,11 +238,6 @@ let fetchAndDisplayWeather = (response) => {
     ];
     let randomSentence = Math.floor(Math.random() * errorMessages.length);
     errorMessage.innerHTML = errorMessages[randomSentence];
-    document.getElementById("city-info-container").style.visibility = "hidden";
-    document.getElementById("current-weather-container").style.visibility =
-      "hidden";
-    document.getElementById("rude-sentence").style.visibility = "hidden";
-    document.getElementById("forecast-container").style.visibility = "hidden";
   }
 };
 

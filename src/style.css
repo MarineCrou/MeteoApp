@@ -154,7 +154,7 @@ body {
 }
 
 .units {
-  color: #ee6462;
+  /* color: #ee6462; */
   text-decoration: none;
   cursor: pointer;
 }
@@ -223,9 +223,9 @@ body {
 }
 
 .forecast-temp {
-  font-size: 0.8rem;
-  color: #ee6462;
-  font-weight: bold;
+  font-size: 0.9rem;
+  color: #2f4858;
+  /* font-weight: semi-bold; */
 }
 
 /* Footer */
@@ -288,7 +288,8 @@ p small a {
 
   #rude-sentence {
     font-size: 1.2rem;
-    padding: 0 0 20px 0;
+    padding: 20px 0;
+    margin: 20px 0;
   }
 
   #city-img {
@@ -299,9 +300,14 @@ p small a {
   #forecast-container {
     flex-direction: column;
     gap: 10px;
+    margin-top: 0;
   }
 
   .forecast-item {
     width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
   }
 }
