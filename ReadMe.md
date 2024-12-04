@@ -2,7 +2,7 @@
 
 **A responsive weather browser app with a humorous twist!** : https://therudeweatherapp.netlify.app/ <br>
 The Rude Weather App provides real-time weather information alongside a cheeky, funny (but non-swearing) comment that matches the mood of the weather.
-<br>A fun two days project to play around with my Javascript and DOM knowledge.
+<br>A fun two days project.
 
 ---
 
