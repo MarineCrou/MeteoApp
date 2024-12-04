@@ -7,10 +7,6 @@ The Rude Weather App provides real-time weather information alongside a cheeky, 
 
 ## 🚀 Features
 
----
-
-## 🚀 Features
-
 - **Current Weather:** Displays the current temperature, daily high and low temperatures, and weather conditions (e.g., cloudy, sunny, raining).
 - **5-Day Forecast:** Provides a detailed weather outlook for the next five days.
 - **Geolocation on Load:** Automatically requests the user’s location on app load to display their local weather & matching image.
